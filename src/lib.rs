@@ -1,6 +1,18 @@
 use num::complex::Complex;
 
-fn mandelbrot_at_point() {}
+fn mandelbrot_at_point(cx: f64, cy: f64, max_iters: usize) -> usize {
+    let mut z = Complex { re: 0.0, im: 0.0 };
+    let c = Complex::new(cx, cy);
+
+    for i in 0..=max_iters {
+        if z.norm() > 2.0 {
+            // has escaped the set
+            return i;
+        }
+        z = z * z + c;
+    }
+    max_iters
+}
 
 pub fn calculate_mandelbrot() {
     println!("Calculating!")
