@@ -30,8 +30,8 @@ pub fn calculate_mandelbrot(
         let mut row: Vec<usize> = Vec::with_capacity(height);
 
         for img_x in 0..width {
-            let x_percent = (img_x as f64 / width as f64);
-            let y_percent = (img_y as f64 / height as f64);
+            let x_percent = img_x as f64 / width as f64;
+            let y_percent = img_y as f64 / height as f64;
             let cx = x_min + (x_max - x_min) * x_percent;
             let cy = y_min + (y_max - y_min) * y_percent;
             let escaped_at = mandelbrot_at_point(cx, cy, max_iters);
@@ -49,13 +49,13 @@ pub fn render_mandelbrot(escape_vals: Vec<Vec<usize>>) {
         for column in row {
             let val = match column {
                 0..=2 => ' ',
-                2..=5 => '.',
-                5..=10 => '😊',
+                3..=5 => '.',
+                6..=10 => '😊',
                 11..=30 => '*',
-                30..=100 => '+',
-                100..=200 => 'X',
-                200..=400 => '$',
-                400..=700 => '#',
+                31..=100 => '+',
+                101..=200 => 'X',
+                201..=400 => '$',
+                401..=700 => '#',
                 _ => '🙃',
             };
 
