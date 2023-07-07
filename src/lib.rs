@@ -14,8 +14,33 @@ fn mandelbrot_at_point(cx: f64, cy: f64, max_iters: usize) -> usize {
     max_iters
 }
 
-pub fn calculate_mandelbrot() {
-    println!("Calculating!")
+pub fn calculate_mandelbrot(
+    max_iters: usize,
+    x_min: f64,
+    x_max: f64,
+    y_min: f64,
+    y_max: f64,
+    width: usize,
+    height: usize,
+) -> Vec<Vec<usize>> {
+    let mut rows: Vec<_> = Vec::with_capacity(width);
+
+    for img_y in 0..height {
+
+        let mut row: Vec<usize> = Vec::with_capacity(height);
+
+        for img_x in 0..width {
+            let x_percent = (img_x as f64 / width as f64);
+            let y_percent = (img_y as f64 / height as f64);
+            let cx = x_min + (x_max - x_min) * x_percent;
+            let cy = y_min + (y_max - y_min) * y_percent;
+            let escaped_at = mandelbrot_at_point(cx, cy, max_iters);
+            row.push(escaped_at);
+        }
+
+        rows.push(row);
+    }
+    rows
 }
 
 pub fn render_mandelbrot(escape_vals: Vec<Vec<usize>>) {
@@ -31,7 +56,7 @@ pub fn render_mandelbrot(escape_vals: Vec<Vec<usize>>) {
                 100..=200 => 'X',
                 200..=400 => '$',
                 400..=700 => '#',
-                _ => '🙃'
+                _ => '🙃',
             };
 
             line.push(val);
