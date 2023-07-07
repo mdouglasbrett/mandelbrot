@@ -1,6 +1,6 @@
 use mandelbrot::{calculate_mandelbrot, render_mandelbrot};
 
 fn main() {
-    calculate_mandelbrot();
-    render_mandelbrot(vec![vec![20 as usize], vec![6 as usize], vec![423 as usize], vec![52 as usize]]);
+    let mandelbrot = calculate_mandelbrot(1000, 2.0, 1.0, -1.0, 1.0, 100, 24);
+    render_mandelbrot(mandelbrot);
 }
